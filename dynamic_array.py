@@ -153,19 +153,32 @@ class DynamicArray:
 
         self._size += 1
 
-
-
     def insert_at_index(self, index: int, value: object) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if index < 0 or index > self._size:
+            raise DynamicArrayException
+
+        if self._size == self._capacity:
+            self.resize(self._capacity * 2)
+
+        for i in range(self._size, index, -1):
+            self._data.set(i, self._data.get(i - 1))
+
+        self._data.set(index, value)
+
+        self._size += 1
 
     def remove_at_index(self, index: int) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if index < 0 or index >= self._size:
+            raise DynamicArrayException
+
+        if self._capacity > 10 and self._size < self._capacity / 4:
+            new_capacity = max(self._size * 2, 10)
+            self.resize(new_capacity)
+
+        for i in range(index, self._size - 1):
+            self._data.set(i, self._data.get(i + 1))
+
+        self._size -= 1
 
     def slice(self, start_index: int, size: int) -> "DynamicArray":
         """
