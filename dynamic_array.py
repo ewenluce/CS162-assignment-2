@@ -146,10 +146,12 @@ class DynamicArray:
         self._capacity = new_capacity
 
     def append(self, value: object) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if self._size == self._capacity:
+            self.resize(self._capacity * 2)
+
+        self._data.set(self._size, value)
+
+        self._size += 1
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
