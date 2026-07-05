@@ -145,8 +145,6 @@ class DynamicArray:
         self._data = new_data
         self._capacity = new_capacity
 
-        
-
     def append(self, value: object) -> None:
         """
         TODO: Write this implementation
