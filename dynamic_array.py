@@ -153,6 +153,8 @@ class DynamicArray:
 
         self._size += 1
 
+
+
     def insert_at_index(self, index: int, value: object) -> None:
         """
         TODO: Write this implementation
