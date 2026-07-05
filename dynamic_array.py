@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Ewen Luce
+# OSU Email: lucee@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 2
+# Due Date: 7/2/26
+# Description: Implementing various methods using dynamic arrays
 
 
 from static_array import StaticArray
@@ -132,10 +132,18 @@ class DynamicArray:
     # -----------------------------------------------------------------------
 
     def resize(self, new_capacity: int) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if not isinstance(new_capacity, int) or new_capacity <= 0:
+            return
+        if new_capacity < self._size:
+            return
+
+        new_data = StaticArray(new_capacity)
+
+        for i in range(self._size):
+            new_data.set(i, self._data.get(i))
+
+        self._data = new_data
+        self._capacity = new_capacity
 
     def append(self, value: object) -> None:
         """
