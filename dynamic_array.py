@@ -207,23 +207,62 @@ class DynamicArray:
             new_array.append(map_func(self._data.get(i)))
 
         return new_array
+
     def filter(self, filter_func) -> "DynamicArray":
-        """
-        TODO: Write this implementation
-        """
-        pass
+        new_array = DynamicArray()
+
+        for i in range(self._size):
+            value = self._data.get(i)
+            if filter_func(value):
+                new_array.append(value)
+
+        return new_array
 
     def reduce(self, reduce_func, initializer=None) -> object:
-        """
-        TODO: Write this implementation
-        """
-        pass
+
+        if self._size == 0:
+            return initializer
+
+        if initializer is None:
+            result = self._data.get(0)
+            start = 1
+        else:
+            result = initializer
+            start = 0
+
+        for i in range(start, self._size):
+            result = reduce_func(result, self._data.get(i))
+
+        return result
 
 def find_mode(arr: DynamicArray) -> tuple[DynamicArray, int]:
-    """
-    TODO: Write this implementation
-    """
-    pass
+    modes = DynamicArray()
+
+    if arr.length() == 0:
+        return modes, 0
+
+    current_value = arr.get_at_index(0)
+    current_count = 1
+    max_count = 1
+    modes.append(current_value)
+
+    for i in range(1, arr.length()):
+        value = arr.get_at_index(i)
+
+        if value == current_value:
+            current_count += 1
+        else:
+            current_value = value
+            current_count = 1
+
+        if current_count > max_count:
+            max_count = current_count
+            modes = DynamicArray()
+            modes.append(current_value)
+        elif current_count == max_count and current_count == 1:
+            modes.append(current_value)
+
+    return modes, max_count
 
 
 # ------------------- BASIC TESTING -----------------------------------------
