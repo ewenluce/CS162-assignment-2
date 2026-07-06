@@ -236,15 +236,16 @@ class DynamicArray:
         return result
 
 def find_mode(arr: DynamicArray) -> tuple[DynamicArray, int]:
-    modes = DynamicArray()
-
     if arr.length() == 0:
-        return modes, 0
+        return DynamicArray(), 0
 
     current_value = arr.get_at_index(0)
     current_count = 1
     max_count = 1
+
+    modes = DynamicArray()
     modes.append(current_value)
+    run_added = True
 
     for i in range(1, arr.length()):
         value = arr.get_at_index(i)
@@ -254,13 +255,16 @@ def find_mode(arr: DynamicArray) -> tuple[DynamicArray, int]:
         else:
             current_value = value
             current_count = 1
+            run_added = False
 
         if current_count > max_count:
             max_count = current_count
             modes = DynamicArray()
             modes.append(current_value)
-        elif current_count == max_count and current_count == 1:
+            run_added = True
+        elif current_count == max_count and not run_added:
             modes.append(current_value)
+            run_added = True
 
     return modes, max_count
 
