@@ -43,46 +43,48 @@ class Bag:
     # -----------------------------------------------------------------------
 
     def add(self, value: object) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        self._da.append(value)
 
     def remove(self, value: object) -> bool:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        for i in range(self._da.length()):
+            if self._da.get_at_index(i) == value:
+                self._da.remove_at_index(i)
+                return True
+        return False
 
     def count(self, value: object) -> int:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        total = 0
+        for i in range(self._da.length()):
+            if self._da.get_at_index(i) == value:
+                total += 1
+        return total
 
     def clear(self) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        self._da = DynamicArray()
 
     def equal(self, second_bag: "Bag") -> bool:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if self._da.length() != second_bag._da.length():
+            return False
+
+        for i in range(self._da.length()):
+            value = self._da.get_at_index(i)
+            if self.count(value) != second_bag.count(value):
+                return False
+
+        return True
 
     def __iter__(self):
-        """
-        TODO: Write this implementation
-        """
-        pass
+        self._index = 0
+        return self
 
     def __next__(self):
-        """
-        TODO: Write this implementation
-        """
-        pass
+        try:
+            value = self._da.get_at_index(self._index)
+        except DynamicArrayException:
+            raise StopIteration
+
+        self._index += 1
+        return value
 
 
 # ------------------- BASIC TESTING -----------------------------------------
