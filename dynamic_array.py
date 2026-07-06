@@ -181,23 +181,32 @@ class DynamicArray:
         self._size -= 1
 
     def slice(self, start_index: int, size: int) -> "DynamicArray":
-        """
-        TODO: Write this implementation
-        """
-        pass
+        if start_index < 0 or start_index >= self._size:
+            raise DynamicArrayException
+
+        if not isinstance(size, int) or size < 0:
+            raise DynamicArrayException
+
+        if start_index + size > self._size:
+            raise DynamicArrayException
+
+        new_array = DynamicArray()
+        for i in range(start_index, start_index + size):
+            new_array.append(self._data.get(i))
+
+        return new_array
 
     def merge(self, second_da: "DynamicArray") -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        for i in range(second_da.length()):
+            self.append(second_da.get_at_index(i))
 
     def map(self, map_func) -> "DynamicArray":
-        """
-        TODO: Write this implementation
-        """
-        pass
+        new_array = DynamicArray()
 
+        for i in range(self._size):
+            new_array.append(map_func(self._data.get(i)))
+
+        return new_array
     def filter(self, filter_func) -> "DynamicArray":
         """
         TODO: Write this implementation
